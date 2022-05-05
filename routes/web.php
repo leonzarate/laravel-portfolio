@@ -69,9 +69,11 @@ Route::get('/', function() {
     echo "<a href='" . route('contactos') . "'>Contactos 5</a><br>";
 }); */
 
-//Auth::routes(['register'=>false]);//register => false, deshabilito la ruta de register
+//Auth::routes(['register'=>false]);//register => false, deshabilito la ruta de register'logout');
+Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Auth::routes();
+
 /*
-Auth::post('login', [App\Http\Controller\Auth\LoginController::class, 'login'])->name('login');
-Auth::post('logout', [App\Http\Controller\Auth\LoginController::class, 'logout'])->name('logout');
+Auth::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
+Auth::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 */

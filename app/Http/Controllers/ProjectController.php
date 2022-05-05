@@ -31,7 +31,7 @@ class ProjectController extends Controller
         $projects = Project::latest('updated_at')->paginate(1);
 
         return view('projects.index', [PortolioController::Class, 'index'],[
-                'projects' => Project::latest('updated_at')->paginate(2)
+                'projects' => Project::latest('updated_at')->paginate(15)
                 //'projects' => Project::latest('updated_at')
             ]); 
     }

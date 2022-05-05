@@ -14,6 +14,7 @@
                 @csrf
                 
                 <H1 class="display-4 text-black-75">@lang('Contact')</H1>
+                <hr>
 
                 <div class="form-group">
                     <label for="name">Nombre</label>
@@ -76,7 +77,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <div class="d-grid gap-2 d-lg-block">
+                    <div class="d-grid gap-2 d-lg-block py-3">
                         <button class="btn btn-primary w-100">
                             @lang('Send')
                         </button>
