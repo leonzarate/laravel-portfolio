@@ -1,2 +1,2 @@
 Error personalizado - 404<br>
-<a href="/">Volver a inicio</a>
+<a href="/home">Volver a inicio</a>

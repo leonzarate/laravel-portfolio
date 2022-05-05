@@ -17,6 +17,7 @@ use App\Http\Controllers\PortfolioController;
 
 
 Route::view('/', 'home')->name('home');
+Route::view('/home', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
 
@@ -68,7 +69,9 @@ Route::get('/', function() {
     echo "<a href='" . route('contactos') . "'>Contactos 5</a><br>";
 }); */
 
-Auth::routes(['register'=>false]);//register => false, deshabilito la ruta de register
+//Auth::routes(['register'=>false]);//register => false, deshabilito la ruta de register
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*
+Auth::post('login', [App\Http\Controller\Auth\LoginController::class, 'login'])->name('login');
+Auth::post('logout', [App\Http\Controller\Auth\LoginController::class, 'logout'])->name('logout');
+*/
