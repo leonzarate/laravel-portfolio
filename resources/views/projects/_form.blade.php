@@ -21,9 +21,7 @@
 
 <div class="form-group">
     <label for="description">Descripción del proyecto</label>
-    <textarea class="form-control border-0 bg-light shadow-sm" name="description"> 
-        {{ old('description', $project->description) }}
-    </textarea>
+    <textarea class="form-control border-0 bg-light shadow-sm" name="description">{{ old('description', $project->description) }}</textarea>
 </div>
 
 <div class="d-flex justify-content-between align-items-center form-group">
