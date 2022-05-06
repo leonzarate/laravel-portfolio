@@ -26,10 +26,11 @@
     </textarea>
 </div>
 
-<div class="form-group">
+<div class="d-flex justify-content-between align-items-center form-group">
     <div class="d-grid gap-2 d-lg-block py-3">
         <button class="btn btn-primary w-100">
             {{ $btnText }}
         </button>
     </div>
+    <a class="btn btn-link btn-block" href="{{ route('projects.index') }}">Cancelar</a>
 </div>
