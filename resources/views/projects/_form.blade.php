@@ -1,5 +1,9 @@
 @csrf
 
+<div class="form-group mb-3">
+    <label for="formFileSm" class="form-label">Ingrese una imagen</label>
+    <input name="image" class="form-control-sm" type="file" id="formFileSm">
+  </div>
 
 <div class="form-group">
     <label for="title">Título del proyecto</label>

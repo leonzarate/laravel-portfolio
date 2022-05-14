@@ -31,7 +31,7 @@ class ProjectController extends Controller
         $projects = Project::latest('updated_at')->paginate(1);
 
         return view('projects.index', [PortolioController::Class, 'index'],[
-                'projects' => Project::latest('updated_at')->paginate(15)
+                'projects' => Project::latest('updated_at')->paginate(3)
                 //'projects' => Project::latest('updated_at')
             ]); 
     }
@@ -104,7 +104,20 @@ class ProjectController extends Controller
         //return $request->all();
 
         
-        Project::create( $request->validated() );
+        /*
+        * Se crea una nueva instanacia del model Project, para que de esa forma
+        * se guarda el request y la imagen en el objeto local, y finalmente se 
+        * se realiza un save(), haciendo de esa forma una sola conexion a la base.
+        * si trabajara con el static Project::create, y luego agregara la imagen,
+        * serían dos conexiones a la base para un mismo proceso.
+        */
+        $project = new Project( $request->validated() ); //Project::create( $request->validated() );
+        
+        $project->image = $request->file('image')->store('images');
+
+        $project->save();
+
+        
 
         /*
         * Hacer el return de la vista, es igual al metodo index del controlador.
@@ -180,4 +193,5 @@ class ProjectController extends Controller
                 
         return redirect()->route('projects.index')->with('status','El proyecto fué eliminado con éxito');
     }
+
 }

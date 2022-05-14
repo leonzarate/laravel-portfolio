@@ -45,7 +45,9 @@ Route::resource('portfolio', 'App\Http\Controllers\ProjectController')
                           //la desventaja de ésta opcion, acá, es que al ser un resource, bloquea todas 
                           //las rutas del resource sin permitir, por ej, listar los proyectos.
 
-Route::post('contact', [App\Http\Controllers\MessageController::class, 'store'])->name('message.store');
+//Route::post('contact', [App\Http\Controllers\MessageController::class, 'store'])->name('message.store');
+
+Route::post('contact', 'MessageController@store')->name('message.store');
 
 /* Route::get('/', function () {
     $nombre = "Mauricio";

@@ -48,10 +48,14 @@
         @endforelse
 
         <br>
-        <small>{{ $projects->/*onEachSide(3)->*/links() }}</small>
-        {{--{{ $projects->render() }}--}}
 
+        {{-- <small>{{ $projects->/*onEachSide(3)->*/links() }}</small> --}}
+        {{--{{ $projects->render() }}--}}
+        <div class="pagination justify-content-center">
+            {{ $projects->links() }}
+        </div>
     </ul>
+
 </div>
 
 
