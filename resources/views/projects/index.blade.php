@@ -24,12 +24,28 @@
 
     <ul class="list-group">
         @forelse ($projects as $project)
+            
+        <div class="card" style="width: 18rem;">
+            <img src="/storage/{{ $project->image }}" class="card-img-top" alt="{{ $project->title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ $project->title }}</h5>
+              <p class="card-text">{{ $project->title }}</p>
+              <a href="{{ route('projects.show', $project) }}" class="btn btn-primary">Ver mas</a>
+            </div>
+          </div>
+
                 <li class="list-group-item border-0 mb-3 shadow-sm">
                     {{-- 
                         $project, al indicar así, laravel infiere
                         $project->getRouteKey() => 1
                     --}}
-                    <a class="text-secondary text-decoration-none d-flex justify-content-between align-items-center" href="{{ route('projects.show', $project) }}">
+                    <a class="text-secondary text-decoration-none d-flex justify-content-between align-items-center" 
+                        href="{{ route('projects.show', $project) }}">
+
+                        @if($project->image)
+                            <img src="/storage/{{ $project->image }}" alt="{{ $project->title }}">
+                        @endif
+
                         <span class="font-weight-bold">
                             {{ $project->title }}
                         </span>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SaveProjectRequest;
 
 //use Illuminate\Support\Facades\DB;
@@ -113,7 +114,7 @@ class ProjectController extends Controller
         */
         $project = new Project( $request->validated() ); //Project::create( $request->validated() );
         
-        $project->image = $request->file('image')->store('images');
+        $project->image = $request->file('image')->store('images','public');
 
         $project->save();
 
