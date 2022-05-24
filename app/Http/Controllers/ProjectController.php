@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SaveProjectRequest;
@@ -28,12 +29,13 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        
+        
         //$portfolio = DB::table('projects')->get();
-        $projects = Project::latest('updated_at')->paginate(1);
+        $projects = Project::latest('updated_at');
 
         return view('projects.index', [PortolioController::Class, 'index'],[
-                'projects' => Project::latest('updated_at')->paginate(3)
-                //'projects' => Project::latest('updated_at')
+                'projects' => Project::latest('updated_at')->paginate(6)
             ]); 
     }
 
@@ -118,7 +120,13 @@ class ProjectController extends Controller
 
         $project->save();
 
-        
+        $image = Image::make(Storage::disk('public')->get($project->image))
+            ->widen(600)
+            ->limitcolors(255) //limitar los colores daña mucho la imagen
+            ->encode();
+
+        //ahora reemplazo la imagen
+        Storage::disk('public')->put($project->image, (string) $image);
 
         /*
         * Hacer el return de la vista, es igual al metodo index del controlador.
@@ -175,7 +183,30 @@ class ProjectController extends Controller
             'description' => request('description'),
         ]);*/
 
-        $project->update($request->validated());
+        
+        if ( $request->hasFile('image'))
+        {
+            Storage::disk('public')->delete($project->image);
+            
+            $project->fill( $request->validated() );
+        
+            $project->image = $request->file('image')->store('images','public');
+    
+            $project->save();
+
+            $image = Image::make(Storage::disk('public')->get($project->image))
+                    ->widen(600)
+                    ->limitcolors(255) //limitar los colores daña mucho la imagen
+                    ->encode();
+
+            //ahora reemplazo la imagen
+            Storage::disk('public')->put($project->image, (string) $image);
+                
+        } else {
+            $project->update( array_filter( $request->validated() ) );
+        }
+
+        
 
         return redirect()
             ->route('projects.show', $project)
@@ -190,6 +221,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        Storage::disk('public')->delete($project->image);
         $project->delete();
                 
         return redirect()->route('projects.index')->with('status','El proyecto fué eliminado con éxito');

@@ -51,6 +51,14 @@
                         </a>
                     </li>
                 @endguest
+
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link {{ setActive('bootstrap') }}" href="{{ route('bootstrap') }}">
+                        Prueba Boostrap
+                    </a>
+                </li>
+                @endauth
                 
             </ul>
         </div>

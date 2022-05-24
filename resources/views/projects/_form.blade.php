@@ -1,7 +1,16 @@
 @csrf
 
-<div class="form-group mb-3">
-    <label for="formFileSm" class="form-label">Ingrese una imagen</label>
+@if($project->image)
+<img class="card-img-top mb-2" 
+    src="/storage/{{ $project->image }}" 
+    class="card-img-top"
+    style="height: 250px; object-fit: cover" 
+    alt="{{ $project->title }}"
+>
+@endif
+
+<div class="custom-file mb-2">
+    <label for="formFileSm" class="custom-file-label">Ingrese una imagen</label>
     <input name="image" class="form-control-sm" type="file" id="formFileSm">
   </div>
 

@@ -8,7 +8,14 @@
 
         <div class="row">
 
-            <div class="col-12 col-sm-10 col-lg-6 mx-auto">
+            <div class="col-12 col-sm-10 col-lg-8 mx-auto">
+
+                @if($project->image)
+                <img src="/storage/{{ $project->image }}" 
+                    class="card-img-top" 
+                    alt="{{ $project->title }}"
+                >
+                @endif
 
                 <div class="bg-white p-5 shadow rounded">
 

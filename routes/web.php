@@ -20,6 +20,7 @@ Route::view('/', 'home')->name('home');
 Route::view('/home', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
+Route::view('/bootstrap', 'bootstrap')->name('bootstrap');
 
 //Route::apiResource('portfolio', App\Http\Controllers\PortfolioController::class,['index']);
 /*

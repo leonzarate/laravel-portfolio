@@ -29,6 +29,12 @@ class SaveProjectRequest extends FormRequest
             'url' => [
                 'required',
                 Rule::unique('projects')->ignore($this->route('project'))],
+            'image' => [
+                $this->route('project') ? 'nullable' : 'required', //el this->route es para cuando estoy haciendo un update
+                'mimes:jpeg,png',
+                //'max:2000'
+                //'dimensions:min_width=400,min_heigth=200',
+            ], //'image' es para filtrar a poder subir solo tipos  MIME-TYPE
             'description' => 'required',
         ];
     }
@@ -37,6 +43,7 @@ class SaveProjectRequest extends FormRequest
     {
         return [
             'title.required' => ('El campo Título necesita un valor'),
+            //'image.required' => ('El campo Imagen es obligatorio'),
         ];
     }
 }
