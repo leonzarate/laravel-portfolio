@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Events\ProjectSaved;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\SaveProjectRequest;
 
@@ -120,13 +119,7 @@ class ProjectController extends Controller
 
         $project->save();
 
-        $image = Image::make(Storage::disk('public')->get($project->image))
-            ->widen(600)
-            ->limitcolors(255) //limitar los colores daña mucho la imagen
-            ->encode();
-
-        //ahora reemplazo la imagen
-        Storage::disk('public')->put($project->image, (string) $image);
+        ProjectSaved::dispatch($project); //Evento para optimizar la imagen
 
         /*
         * Hacer el return de la vista, es igual al metodo index del controlador.
@@ -194,19 +187,11 @@ class ProjectController extends Controller
     
             $project->save();
 
-            $image = Image::make(Storage::disk('public')->get($project->image))
-                    ->widen(600)
-                    ->limitcolors(255) //limitar los colores daña mucho la imagen
-                    ->encode();
-
-            //ahora reemplazo la imagen
-            Storage::disk('public')->put($project->image, (string) $image);
+            ProjectSaved::dispatch($project); //Evento para optimizar la imagen
                 
         } else {
             $project->update( array_filter( $request->validated() ) );
         }
-
-        
 
         return redirect()
             ->route('projects.show', $project)
