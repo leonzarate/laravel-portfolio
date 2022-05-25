@@ -37,8 +37,8 @@
                     @endif
 
                     <div class="card-body">
-                        <h5 class="card-text text-truncate">{{ $project->title }}</h5>
-                        <p class="card-text">{{ $project->description }}</p>
+                        <h5 class="card-text">{{ $project->title }}</h5>
+                        <p class="card-text text-truncate">{{ $project->description }}</p>
                         <a href="{{ route('projects.show', $project) }}" class="btn btn-primary btn-sm">Ver mas...</a>
                     </div>
                     <div class="card-footer">
