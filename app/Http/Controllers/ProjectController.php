@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Category;
 use App\Events\ProjectSaved;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -48,6 +49,7 @@ class ProjectController extends Controller
     {
         return view('projects.create',[
             'project'=> new Project,
+            'categories' => Category::pluck('name', 'id'),
         ]);
     }
 
@@ -156,8 +158,11 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
+        
+        
         return view('projects.edit', [
             'project' => $project,
+            'categories' => Category::pluck('name', 'id'),
         ]);
     }
 

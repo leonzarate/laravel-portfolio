@@ -28,7 +28,12 @@ class SaveProjectRequest extends FormRequest
             'title' => 'required',
             'url' => [
                 'required',
-                Rule::unique('projects')->ignore($this->route('project'))],
+                Rule::unique('projects')->ignore($this->route('project'))
+            ],
+            'category_id' => [
+                'required',
+                'exists:categories,id', //Esto es para evitar ataque malintencionado y usar solo las categorias de la base
+            ],
             'image' => [
                 $this->route('project') ? 'nullable' : 'required', //el this->route es para cuando estoy haciendo un update
                 'mimes:jpeg,png',

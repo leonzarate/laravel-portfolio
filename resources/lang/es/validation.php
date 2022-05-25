@@ -135,6 +135,7 @@ return [
         'password' => [
             'min' => 'La :attribute debe contener más de :min caracteres',
         ],
+        'image' => 'imagen',
+        'category_id' => 'categoría',
     ],
-    'image'                 => 'imagen',
 ];
