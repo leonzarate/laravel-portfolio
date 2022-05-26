@@ -19,7 +19,15 @@
 
                 <div class="bg-white p-5 shadow rounded">
 
-                    <h1>{{ $project->title}}</h1>
+                    <h1 class="mb-0">{{ $project->title}}</h1>
+
+                    @if($project->category_id)
+                        <a 
+                        href="{{ route('categories.show', $project->category) }}"
+                        class="mb-1">
+                        {{ $project->category->name }}
+                        </a>
+                    @endif
 
                     <p class="text-secondary">
                         {{ $project->description}}

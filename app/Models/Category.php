@@ -10,6 +10,11 @@ class Category extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return 'url';
+    }
+
     public function projects()
     {
         //aca se estalece la relacion 1 Categoria -> Muchos Prouyectos

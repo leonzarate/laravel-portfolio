@@ -24,7 +24,7 @@
         <option value="">Seleccione</option>
         @foreach($categories as $id=>$name)
             <option value="{{ $id }}"
-                @if($id == $project->category_id)
+                @if($id == old('category_id', $project->category_id))
                     selected
                 @endif
             >{{ $name }}</option>

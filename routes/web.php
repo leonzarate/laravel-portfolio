@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PortfolioController;
 
 /*
@@ -15,12 +17,17 @@ use App\Http\Controllers\PortfolioController;
 |
 */
 
+/* DB::listen(function($query) {
+    var_dump($query->sql);
+}); */
 
 Route::view('/', 'home')->name('home');
 Route::view('/home', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
 Route::view('/contact', 'contact')->name('contact');
 Route::view('/bootstrap', 'bootstrap')->name('bootstrap');
+
+Route::get('categories/{category}', 'App\Http\Controllers\CategoryController@show')->name('categories.show');
 
 //Route::apiResource('portfolio', App\Http\Controllers\PortfolioController::class,['index']);
 /*

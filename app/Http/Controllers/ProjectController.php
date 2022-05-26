@@ -35,7 +35,7 @@ class ProjectController extends Controller
         $projects = Project::latest('updated_at');
 
         return view('projects.index', [PortolioController::Class, 'index'],[
-                'projects' => Project::latest('updated_at')->paginate(6)
+                'projects' => Project::with('category')->latest('updated_at')->paginate()
             ]); 
     }
 
@@ -181,7 +181,7 @@ class ProjectController extends Controller
             'description' => request('description'),
         ]);*/
 
-        
+     
         if ( $request->hasFile('image'))
         {
             Storage::disk('public')->delete($project->image);

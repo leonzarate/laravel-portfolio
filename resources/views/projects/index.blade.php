@@ -8,7 +8,16 @@
 <div class="container">
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <H1 class="display-4 mb-0">@lang('Projects')</H1>
+        
+        @isset($category)
+            <div>
+                <H1 class="display-4 mb-0">{{ $category->name }}</H1>
+                <a href="{{ route('projects.index') }}">Regresar a los proyectos</a>
+            </div>
+        @else
+            <H1 class="display-4 mb-0">@lang('Projects')</H1>    
+        @endisset
+        
 
         @auth
             <a class="btn btn-primary" href=" {{ route('projects.create') }} ">
@@ -39,7 +48,15 @@
                     <div class="card-body">
                         <h5 class="card-text">{{ $project->title }}</h5>
                         <p class="card-text text-truncate">{{ $project->description }}</p>
-                        <a href="{{ route('projects.show', $project) }}" class="btn btn-primary btn-sm">Ver mas...</a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ route('projects.show', $project) }}" class="btn btn-primary btn-sm">Ver mas...</a>
+                            @if($project->category_id)
+                                <a 
+                                href="{{ route('categories.show', $project->category) }}">
+                                {{ $project->category->name }}
+                                </a>
+                            @endif
+                        </div>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">Ultima actualización {{ $project->updated_at->DiffForHumans()}}</small>
