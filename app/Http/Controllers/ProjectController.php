@@ -47,6 +47,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        //La politica de acceso 'create-prjects' se define en AuthServiceProvider.php
+        //en la definicion del gate
+        $this->authorize('create-projects');
+
         return view('projects.create',[
             'project'=> new Project,
             'categories' => Category::pluck('name', 'id'),
@@ -106,6 +110,7 @@ class ProjectController extends Controller
         */
         
         //return $request->all();
+
 
         
         /*

@@ -18,12 +18,13 @@
             <H1 class="display-4 mb-0">@lang('Projects')</H1>    
         @endisset
         
-
-        @auth
+        
+        @can('create-projects')
             <a class="btn btn-primary" href=" {{ route('projects.create') }} ">
                 Crear Proyecto
             </a>
-        @endauth
+        @endcan
+
     </div>
 
     <p class="lead text-secondary">

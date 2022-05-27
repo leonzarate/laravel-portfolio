@@ -25,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        //Agrego la puerta de acceso Gate para controlar autorización.
+        //La validacion es precaria, pero sirve para el caso
+        Gate::define('create-projects', function($user) {
+           return $user->email === 'leonzarate@gmail.com'; 
+        });
     }
 }
