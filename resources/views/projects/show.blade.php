@@ -44,19 +44,24 @@
 
                         @auth
                             <div class="btn-group btn-group-sm">
-                                <a class="btn btn-primary" href="{{ route('projects.edit', $project)}}">
-                                    Editar
-                                </a>
-                                
-                                <a class="btn btn-danger" href="#" onclick="document.getElementById('delete-project').submit()">
-                                    Eliminar
-                                </a>
+                                @can('update', $project)
+                                    <a class="btn btn-primary" href="{{ route('projects.edit', $project)}}">
+                                        Editar
+                                    </a>
+                                @endcan
+
+                                @can('delete', $project)
+                                    <a class="btn btn-danger" href="#" onclick="document.getElementById('delete-project').submit()">
+                                        Eliminar
+                                    </a>
+
+                                    <form class="d-none" id="delete-project" method="POST" action="{{ route('projects.destroy', $project)}}">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endcan
                             </div>
 
-                            <form class="d-none" id="delete-project" method="POST" action="{{ route('projects.destroy', $project)}}">
-                                @csrf
-                                @method('DELETE')
-                            </form>
                         @endauth
 
                     </div>

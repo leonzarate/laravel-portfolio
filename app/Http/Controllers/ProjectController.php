@@ -35,6 +35,7 @@ class ProjectController extends Controller
         $projects = Project::latest('updated_at');
 
         return view('projects.index', [PortolioController::Class, 'index'],[
+                'newProject' => new Project,
                 'projects' => Project::with('category')->latest('updated_at')->paginate()
             ]); 
     }
@@ -49,10 +50,10 @@ class ProjectController extends Controller
     {
         //La politica de acceso 'create-prjects' se define en AuthServiceProvider.php
         //en la definicion del gate
-        $this->authorize('create-projects');
+        $this->authorize('create', $project = new Project);
 
         return view('projects.create',[
-            'project'=> new Project,
+            'project'=> $project,
             'categories' => Category::pluck('name', 'id'),
         ]);
     }
@@ -121,6 +122,8 @@ class ProjectController extends Controller
         * serían dos conexiones a la base para un mismo proceso.
         */
         $project = new Project( $request->validated() ); //Project::create( $request->validated() );
+
+        $this->authorize('create', $project);
         
         $project->image = $request->file('image')->store('images','public');
 
@@ -163,7 +166,7 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
-        
+        $this->authorize('update', $project);
         
         return view('projects.edit', [
             'project' => $project,
@@ -186,6 +189,7 @@ class ProjectController extends Controller
             'description' => request('description'),
         ]);*/
 
+        $this->authorize('update', $project);
      
         if ( $request->hasFile('image'))
         {
@@ -216,6 +220,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $this->authorize('delete', $project);
+
         Storage::disk('public')->delete($project->image);
         $project->delete();
                 

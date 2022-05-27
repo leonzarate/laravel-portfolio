@@ -19,7 +19,7 @@
         @endisset
         
         
-        @can('create-projects')
+        @can('create', $newProject)
             <a class="btn btn-primary" href=" {{ route('projects.create') }} ">
                 Crear Proyecto
             </a>
