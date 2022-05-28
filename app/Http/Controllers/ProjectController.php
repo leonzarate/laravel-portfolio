@@ -36,7 +36,8 @@ class ProjectController extends Controller
 
         return view('projects.index', [PortolioController::Class, 'index'],[
                 'newProject' => new Project,
-                'projects' => Project::with('category')->latest('updated_at')->paginate()
+                'projects' => Project::with('category')->latest('updated_at')->paginate(),
+                'deletedProjects' => Project::onlyTrashed()->get()
             ]); 
     }
 
@@ -222,10 +223,48 @@ class ProjectController extends Controller
     {
         $this->authorize('delete', $project);
 
-        Storage::disk('public')->delete($project->image);
+        // Dado la habilitación del softdelete, ahora la imagen debo conservarla
+        // en caso que se queira restaurar.
+        // Se hace delete permanente en el metodo forceDelete.
+        // Storage::disk('public')->delete($project->image);
+        
         $project->delete();
                 
         return redirect()->route('projects.index')->with('status','El proyecto fué eliminado con éxito');
+    }
+
+
+    public function restore($projectUrl) //aca no podemos user Project $project, Binding model,dado que el proyecto esta "eliminado". Entonces se usa algun campo del registro del projecto
+    {
+        $project = Project::withTrashed()
+                            ->whereUrl($projectUrl)
+                            ->firstOrFail();
+        
+        $this->authorize('restore', $project);
+        
+        $project->restore();
+                
+        return redirect()->route('projects.index')->with('status','El proyecto fué restaurado con éxito');
+    }
+
+    public function forceDelete ($projectUrl)
+    {
+        $project = Project::withTrashed()
+                    ->whereUrl($projectUrl)
+                    ->firstOrFail();
+
+        $this->authorize('forceDelete', $project);
+
+        // Ahora si borro la imagen permantenmente
+        Storage::disk('public')->delete($project->image);
+
+        $project->forceDelete();
+
+        return redirect()
+            ->route('projects.index')
+            ->with('status','El proyecto fué eliminado permanentemente con éxito');
+
+
     }
 
 }

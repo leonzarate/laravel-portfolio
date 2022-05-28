@@ -56,6 +56,10 @@ Route::resource('portfolio', 'App\Http\Controllers\ProjectController')
 
 Route::post('contact', [App\Http\Controllers\MessageController::class, 'store'])->name('message.store');
 //Route::post('contact', 'MessageController@store')->name('message.store');
+Route::patch('portfolio/{project}/restore', 'App\Http\Controllers\ProjectController@restore')
+    ->name('projects.restore');
+Route::delete('portfolio/{project}/forceDelete', 'App\Http\Controllers\ProjectController@forceDelete')
+    ->name('projects.forceDelete');
 
 /* Route::get('/', function () {
     $nombre = "Mauricio";

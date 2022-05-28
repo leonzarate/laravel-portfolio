@@ -35,6 +35,10 @@ class AuthServiceProvider extends ServiceProvider
 
         //Gate::define('create-projects','App\Policies\ProjectPolicy@create');
 
+        Gate::define('view-deleted-projects', function($user){
+            return $user->role === 'admin';
+        });
+
 
     }
 }

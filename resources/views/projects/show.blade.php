@@ -54,13 +54,16 @@
                                     <a class="btn btn-danger" href="#" onclick="document.getElementById('delete-project').submit()">
                                         Eliminar
                                     </a>
-
-                                    <form class="d-none" id="delete-project" method="POST" action="{{ route('projects.destroy', $project)}}">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
                                 @endcan
+
                             </div>
+
+                            @can('delete', $project)
+                                <form class="d-none" id="delete-project" method="POST" action="{{ route('projects.destroy', $project)}}">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            @endcan
 
                         @endauth
 
